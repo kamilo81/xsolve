@@ -1,0 +1,7 @@
+<div md-dialog-content>
+  <img [src]="url" alt="" (load)="loaded()">
+  <i class="fa fa-spinner fa-pulse fa-1x fa-fw" *ngIf="!load"></i>
+</div>
+<div md-dialog-actions>
+  <button md-button (click)="dialogRef.close()">Close</button>
+</div>

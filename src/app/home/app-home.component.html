@@ -1,0 +1,62 @@
+<div>
+  <div class="top-bar">
+    <a id="toggle-menu" (click)="sidenav.toggle()" [ngClass]="{'menu-is-active' : btn}" (window:resize)="closeSlideNav()">
+      <div>
+        <span class="top"></span>
+        <span class="middle"></span>
+        <span class="bottom"></span>
+      </div>
+    </a>
+
+  </div>
+  <md-sidenav-container class="main-container">
+  <md-sidenav #sidenav class="slide-nav-content"
+              [mode]="mode"
+              [opened]="!!btn"
+              (open-start)="buttonStatus(true)"
+              (close-start)="buttonStatus(false)"
+  >
+    <ul class="top">
+
+      <li *ngFor="let item of list"
+          routerLinkActive="{{item.activeClass}}"
+          [class.active]="isActive(item.name)"
+      >
+        <div class="menu-box"
+             [routerLink]="item.url"
+             (click)="toggleSubmenu(item.name)"
+        >
+          <div class="icon">
+            <i class="fa fa-{{item.icon}}" aria-hidden="true"></i>
+          </div>
+          <div class="name">
+            {{item.name}}
+          </div>
+        </div>
+        <ul *ngIf="activeSubmenu == item.name || isActive(item.name)" class="submenu">
+          <li *ngFor="let sub of item.subMenu"
+              routerLinkActive="{{sub.activeClass}}"
+          >
+            <div class="submenu-box"
+                 [routerLink]="sub.url"
+            >
+              <div class="icon">
+                <i class="fa fa-{{sub.icon}}" aria-hidden="true"></i>
+              </div>
+              <div class="name">
+                {{sub.name}}
+              </div>
+            </div>
+          </li>
+        </ul>
+
+      </li>
+
+    </ul>
+
+  </md-sidenav>
+  <div class="container-fluid ">
+    <router-outlet></router-outlet>
+  </div>
+</md-sidenav-container>
+</div>

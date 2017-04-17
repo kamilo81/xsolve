@@ -1,0 +1,44 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  @include font-style(14px, $default-text-color, normal, 16px);
+  font-family: $FontRegular;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  *:focus {
+    outline: none !important;
+  }
+  .flex-inline {
+    display: flex !important;
+    align-items: center;
+  }
+  a {
+    &:focus,
+    &:hover {
+      text-decoration: none;
+    }
+
+  }
+}
+
+.fa-spin {
+  -webkit-animation: fa-spin 0.5s infinite linear;
+  animation: fa-spin .5s infinite linear;
+  &:before {
+
+  }
+}
+
+.ngx-datatable .datatable-footer > div {
+  @include media-breakpoint-down(sm) {
+    flex-direction: column;
+  }
+}
+.ngx-datatable.material .datatable-footer .datatable-pager a {
+  padding: 0;
+  @include media-breakpoint-down(sm) {
+    margin: 0 0 10px 0;
+  }
+}

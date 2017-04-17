@@ -1,0 +1,19 @@
+<div *ngIf="!data && !error; else elseBlock"> Loading album, please wait<i class="fa fa-spinner fa-pulse fa-1x fa-fw"></i> </div>
+
+<ng-template #elseBlock>
+  <div *ngIf="error; else albumBlock">
+    <code>{{error}}</code>
+  </div>
+  <ng-template #albumBlock>
+
+  <div class="album-wrapper">
+    <div class="album-thumbnail" *ngFor="let album of data" (click)="showImage(album.url)">
+      <img [src]="album.thumbnailUrl" alt="">
+      <div class="title">
+        {{album.title}}
+      </div>
+    </div>
+  </div>
+
+  </ng-template>
+</ng-template>

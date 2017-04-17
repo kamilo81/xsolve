@@ -1,0 +1,83 @@
+<div *ngIf="!users && !error; else elseBlock"> Loading users, please wait<i class="fa fa-spinner fa-pulse fa-1x fa-fw"></i> </div>
+
+<ng-template #elseBlock>
+  <div *ngIf="error; else usersBlock">
+    <code>{{error}}</code>
+  </div>
+  <ng-template #usersBlock>
+    <div class="form-inline mb-3">
+      <div class="input-group col p-0 search">
+        <div class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></div>
+        <input type='text'
+               class="form-control"
+               [(ngModel)]="query"
+               placeholder='Filter...'
+               (keyup)='updateFilter($event)'>
+        <div class="input-group-addon" *ngIf="query">
+          <strong>{{count}}</strong>
+        </div>
+      </div>
+    </div>
+    <md-select class="select-limit" placeholder="Users per page" [(ngModel)]="limit" name="limit" (change)="changeLimit()">
+      <md-option *ngFor="let l of limits" [value]="l">
+        {{l}}
+      </md-option>
+    </md-select>
+    <ngx-datatable
+      class='material table'
+      #table
+      [rows]='users'
+      [columnMode]="'force'"
+      [headerHeight]="50"
+      [footerHeight]="'auto'"
+      [rowHeight]="50"
+      [limit]="limit"
+      [scrollbarH]="true"
+      (window:resize)="onResize()"
+      [sorts]="[{prop: 'username', dir: 'asc'}]"
+    >
+      <ngx-datatable-row-detail [rowHeight]="100" #myDetailRow >
+        <ng-template let-row="row" ngx-datatable-row-detail-template>
+          <div style="padding-left:35px;">
+            <div><strong>Address</strong></div>
+            <div>
+              {{row.address.street}},
+              {{row.address.suite}}
+            </div>
+            <div>
+              {{row.address.city}},
+              {{row.address.zipcode}}
+            </div>
+          </div>
+        </ng-template>
+      </ngx-datatable-row-detail>
+      <ngx-datatable-column
+        [width]="50"
+        [resizeable]="false"
+        [sortable]="false"
+        [draggable]="false"
+        [canAutoResize]="false">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <a
+            href="#"
+            [class.icon-right]="!row.$$expanded"
+            [class.icon-down]="row.$$expanded"
+            title="Expand/Collapse Row"
+            (click)="toggleExpandRow(row); $event.preventDefault()">
+          </a>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Username" [width]="200">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+            {{value}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Email" [width]="300">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          {{value}}
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </ng-template>
+</ng-template>

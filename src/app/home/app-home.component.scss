@@ -1,0 +1,203 @@
+@import "../../scss/partials";
+
+
+.top-bar {
+  background: #ffffff;
+  height: $topBarHeight;
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  @include box-shadow(0, 1px, 6px, rgba(0,0,0,0.2));
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .logged-user {
+    margin: 0 15px;
+    display: flex;
+    align-items: center;
+    & > div {
+      display: flex;
+      align-items: center;
+    }
+    .avatar {
+      margin-left: 10px;
+      width: 45px;
+      height: 45px;
+      border-radius: 10px;
+      background-size: cover;
+      background-position: center center;
+    }
+    span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: calc(100vw - 147px);
+      text-align: right;
+    }
+  }
+
+  #toggle-menu {
+    display: block;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    position: relative;
+    margin: 15px 15px 0;
+  }
+  #toggle-menu div {
+    width: 15px;
+    height: 15px;
+    position: relative;
+  }
+  #toggle-menu span {
+    display: block;
+    width: 30px;
+    height: 2px;
+    background: #666666;
+    position: absolute;
+    -webkit-transition: -webkit-transform 0.5s ease-in-out, top 0.25s ease-in-out 0.5s, opacity 0.25s ease-in-out 0.5s;
+    -moz-transition: -moz-transform 0.5s ease-in-out, top 0.25s ease-in-out 0.5s, opacity 0.25s ease-in-out 0.5s;
+    transition: transform 0.5s ease-in-out, top 0.25s ease-in-out 0.5s, opacity 0.25s ease-in-out 0.5s;
+    -webkit-transform-origin: center;
+    -moz-transform-origin: center;
+    transform-origin: center;
+  }
+  #toggle-menu span.top {
+    top: 0;
+  }
+  #toggle-menu span.middle {
+    top: 8px;
+  }
+  #toggle-menu span.bottom {
+    top: 16px;
+  }
+
+  #toggle-menu.menu-is-active span {
+    -webkit-transition: -webkit-transform 0.5s ease-in-out 0.3s, top 0.25s ease-in-out, opacity 0.25s ease-in-out;
+    -moz-transition: -moz-transform 0.5s ease-in-out 0.3s, top 0.25s ease-in-out, opacity 0.25s ease-in-out;
+    transition: transform 0.5s ease-in-out 0.3s, top 0.25s ease-in-out, opacity 0.25s ease-in-out;
+  }
+  #toggle-menu.menu-is-active span.top, #toggle-menu.menu-is-active span.middle {
+    top: 6px;
+    -webkit-transform: rotate(135deg);
+    -moz-transform: rotate(135deg);
+    transform: rotate(135deg);
+  }
+  #toggle-menu.menu-is-active span.middle {
+    opacity: 0;
+  }
+  #toggle-menu.menu-is-active span.bottom {
+    top: 6px;
+    -webkit-transform: rotate(225deg);
+    -moz-transform: rotate(225deg);
+    transform: rotate(225deg);
+  }
+}
+.main-container {
+  height: calc(100vh - #{$topBarHeight});
+  .slide-nav-content,
+  .container-fluid {
+    padding-top: 15px;
+  }
+  .slide-nav-content {
+    padding: 15px;
+    @include box-shadow(1px, 0, 6px, rgba(0,0,0,0.2));
+    button.logout {
+      cursor: pointer;
+      margin-bottom: 15px;
+      text-transform: capitalize;
+    }
+    ul.top {
+      padding: 0;
+      margin: 0;
+      list-style-type: none;
+      min-width: 100px;
+      &>li {
+        cursor: pointer;
+        padding: 5px 0;
+        &>.menu-box {
+          display: flex;
+          align-items: center;
+          & > div {
+            display: inline-block;
+          }
+          & > .icon {
+            width: 30px;
+            text-align: center;
+            i {
+              transition: all .4s;
+              font-size: 1.5rem;
+              color: $primary;
+
+            }
+          }
+          .name {
+            transition: all .4s;
+            font-size: 1rem;
+            padding-left: 5px;
+            color: rgba(0, 0, 0, 0.6);
+            text-transform: capitalize;
+          }
+        }
+        &.active,
+        &:hover {
+          &>.menu-box {
+            .icon {
+              i {
+                color: $primary;
+              }
+            }
+            .name {
+              color: rgba(0, 0, 0, 1);
+            }
+          }
+        }
+        .submenu {
+          padding: 0 0 0 20px;
+          margin: 0;
+          list-style-type: none;
+          li {
+            .submenu-box {
+              display: flex;
+              align-items: center;
+              padding: 5px 0;
+              .icon {
+                width: 25px;
+                text-align: center;
+                i {
+                  transition: all .4s;
+                  font-size: 1.3rem;
+                  color:$primary;
+                }
+              }
+              .name {
+                transition: all .4s;
+                font-size: 1rem;
+                padding-left: 2px;
+                color: rgba(0, 0, 0, 0.6);
+                text-transform: capitalize;
+              }
+            }
+            &.active,
+            &:hover {
+              &>.submenu-box {
+                .icon {
+                  i {
+                    color: $primary;
+                  }
+                }
+                .name {
+                  color: rgba(0, 0, 0, 1);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
